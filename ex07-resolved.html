@@ -22,36 +22,13 @@
           do two-way databinding
       -->
       <br>
-      <label for="workshop">Idade: 
-        <input type="text" data-ng-model="idade">  {{ idade | testaMaioridade }}
+      <label for="nota">Nota: 
+        <input type="text" data-ng-model="nota">  {{ nota | testaNota }}
       </label>
 
       <br>
       <br>
     </p>
-    <p> 
-
-      <label for="lower">Lower<input type="text" data-ng-model="lower" data-ng-init="AAAA" name="lower"> </label>
-      <br>
-      <strong>Minúsculas</strong>
-      Lowercase {{lower}}: {{ lower | lowercase }}
-    </p>
-    <p>
-        <strong>Número de casas decimais.</strong>
-        Number: {{ 1234 | number:4 }}
-    </p>
-    <p>
-        <strong>Formatação de datas com timestamp</strong>
-        Date: {{ 1395362708482 | date:'dd/MM/yyyy HH:mm:ss Z'}}
-
-    </p>
-    <p> 
-      <strong>Formatação de moeda</strong>
-        <input type="number" ng-model="amount"> <br>
-        default currency symbol (R$): <span id="currency-default">{{amount | currency}}</span><br>
-        custom currency identifier (R$): <span>{{amount | currency:"R$"}}</span>
-    </p>
-    
 
 
     <script src="angular.min.js"></script>
@@ -64,6 +41,30 @@
           if(text)
             return text.split("").reverse().join("");
         };
+      })
+      .filter('testaNota', function() {
+        return function(nota) {
+          var nota = Number(nota);
+          if(!isNaN(nota)) {
+            switch(nota) {
+              case 10:
+              case 9:
+                return 'A';
+              break;
+              case 8:
+                return 'B';
+              break;
+              case 7:
+                return 'C';
+              break;
+              case 6:
+                return 'D';
+              default:
+                return 'F';
+              break;
+            }
+          }
+        }
       })
       .filter('testaMaioridade', function () {
         return function (idade) {
