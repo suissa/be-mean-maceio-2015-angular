@@ -6,7 +6,7 @@
   <body>
 
     <div data-ng-controller='BeerController'>
-      {{ cervejas | json }}
+      {{ cervejas }}
 
       <pre>Ordenando por predicate = {{predicate}}; reverse = {{reverse}}</pre>
 
@@ -24,39 +24,30 @@
     <script src="angular.min.js"></script>
     <script>
       angular.module('workshopBeMEAN', ['workshopFilters'])
-      .controller('BeerController', BeerController);
-
-      function BeerController($scope){
+      .controller('BeerController', ['$scope', function ($scope){
           $scope.reverse = false;
           $scope.predicate = 'name';
-          // criamos um array de cervejas
+        // criamos um array de cervejas
           var cervejas = [{
-              name: 'Kaiser'
-            , price: 2
-            },
-            {
-              name: 'Skol'
-            , price: 3
-            },
-            {
-              name: 'Glacial'
-            , price: 4
-            },
-            {
-              name: 'Polar'
-            , price: 6
-            },
-            {
-              name: 'Heineken'
-            , price: 10
+            name: 'Kaiser', price: 2
+            }, {
+              name: 'Skol', price: 3
+            }, {
+              name: 'Glacial', price: 4
+            }, {
+              name: 'Polar', price: 6
+            }, {
+              name: 'Heineken', price: 10
             }
           ];
         // instanciamos nosso array no nosso scope
         // para que tenhamos acesso à esse array na View
           $scope.cervejas = cervejas;
-      }
 
-      BeerController['$inject'] = ['$scope'];
+      }]);
+
+
+
 
       angular.module('workshopFilters', [])
         .filter('reverseName', function () {
